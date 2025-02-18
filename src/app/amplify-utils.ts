@@ -5,6 +5,7 @@ import outputs from "../../amplify_outputs.json";
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { identifyUser } from 'aws-amplify/analytics';
 import { getCurrentUser } from 'aws-amplify/auth';
+import { AwsRum } from 'aws-rum-web';
 
 Amplify.configure(outputs);
 
@@ -53,4 +54,28 @@ async function sendUserData() {
     userId: user.userId,
     userProfile
   });
+}
+
+try {
+  const config = {
+    sessionSampleRate: 1,
+    identityPoolId: "us-east-1:243843b4-2c3c-4ba7-80e5-29fe0bb4a97a",
+    endpoint: "https://dataplane.rum.us-east-1.amazonaws.com",
+    telemetries: ["performance","errors","http"],
+    allowCookies: true,
+    enableXRay: true
+  };
+
+  const APPLICATION_ID = '96abfaba-1258-42de-9761-d99a8f5aed1f';
+  const APPLICATION_VERSION = '1.0.0';
+  const APPLICATION_REGION = 'us-east-1';
+
+  const awsRum = new AwsRum(
+    APPLICATION_ID,
+    APPLICATION_VERSION,
+    APPLICATION_REGION,
+    config
+  );
+} catch (error) {
+  // Ignore errors thrown during CloudWatch RUM web client initialization
 }
