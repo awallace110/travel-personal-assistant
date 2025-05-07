@@ -5,7 +5,7 @@ import outputs from "../../amplify_outputs.json";
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { identifyUser } from 'aws-amplify/analytics';
 import { getCurrentUser } from 'aws-amplify/auth';
-import { AwsRum } from 'aws-rum-web';
+import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 
 Amplify.configure(outputs);
 
