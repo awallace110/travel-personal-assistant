@@ -57,20 +57,20 @@ async function sendUserData() {
 }
 
 try {
-  const config = {
-    sessionSampleRate: 1,
-    identityPoolId: "us-east-1:243843b4-2c3c-4ba7-80e5-29fe0bb4a97a",
-    endpoint: "https://dataplane.rum.us-east-1.amazonaws.com",
-    telemetries: ["performance","errors","http"],
-    allowCookies: true,
-    enableXRay: true
+  const config: AwsRumConfig = {
+    sessionSampleRate: 1 ,
+    endpoint: "https://dataplane.rum.us-east-1.amazonaws.com" ,
+    telemetries: ["performance","errors","http"] ,
+    allowCookies: true ,
+    enableXRay: false ,
+    signing: true // If you have a public resource policy and wish to send unsigned requests please set this to false
   };
 
-  const APPLICATION_ID = '96abfaba-1258-42de-9761-d99a8f5aed1f';
-  const APPLICATION_VERSION = '1.0.0';
-  const APPLICATION_REGION = 'us-east-1';
+  const APPLICATION_ID: string = 'e303242b-0c0c-45c3-9e45-f97e4300b45b';
+  const APPLICATION_VERSION: string = '1.0.0';
+  const APPLICATION_REGION: string = 'us-east-1';
 
-  const awsRum = new AwsRum(
+  const awsRum: AwsRum = new AwsRum(
     APPLICATION_ID,
     APPLICATION_VERSION,
     APPLICATION_REGION,
